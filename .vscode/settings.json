@@ -1,7 +1,16 @@
 {
-  "vetur.validation.template": false,
-  "vetur.format.enable": false,
   "eslint.validate": ["javascript", "javascriptreact", "typescript", "vue"],
   
-  "vetur.experimental.templateInterpolationService": true
+  "editor.formatOnSave": true,
+  "eslint.format.enable": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  },
+  "editor.tabSize": 2,
+  // Be sure to syncronize these settings with the workspace settings.
+  "vetur.experimental.templateInterpolationService": true,
+  "vetur.validation.template": true,
+  "vetur.format.enable": true,
+  "vetur.completion.tagCasing": "initial"
 }
+
