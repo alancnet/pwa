@@ -8,6 +8,7 @@
   "scripts": {
     "lint": "eslint --ext .js,.vue ./",
     "test": "echo \"No test specified\" && exit 0",
+    "generate-icons": "icongenie generate --skip-trim -i src/assets/icon.png",
     "server:dev": "nodemon --config src-server/nodemon.json src-server/main.js",
     "client:dev": "quasar dev --mode pwa",
     "dev": "npm-run-all -p server:dev client:dev"
@@ -25,6 +26,7 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.13.14",
     "@quasar/app": "^3.0.0",
+    "@quasar/icongenie": "^2.4.0",
     "eslint": "^7.14.0",
     "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.19.1",

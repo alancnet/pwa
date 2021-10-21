@@ -4,6 +4,7 @@ node_modules
 
 # Generated icons
 /public/icons
+/public/favicon.ico
 
 # Quasar core related directories
 .quasar
