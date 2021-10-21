@@ -1,3 +1,34 @@
+<script>
+import { defineComponent } from 'vue'
+import { client } from 'src/client.js'
+
+export default defineComponent({
+  name: 'PageIndex',
+  async setup () {
+    const onMessage = ({ message }) => {
+      console.log('recv', message)
+    }
+
+    const res = await client.get('/rest/test')
+    console.log('res', res)
+
+    return {
+      onMessage
+    }
+  },
+  mounted () {
+    client.connect()
+    client.send({
+      message: 'Hello World'
+    })
+    client.addEventListener('message', this.onMessage)
+  },
+  unmounted () {
+    client.removeEventListener('message', this.onMessage)
+  }
+})
+</script>
+
 <template>
   <q-page class="flex flex-center">
     <img
@@ -7,11 +38,3 @@
     >
   </q-page>
 </template>
-
-<script>
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'PageIndex'
-})
-</script>

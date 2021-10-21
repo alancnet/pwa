@@ -2,6 +2,9 @@
 .thumbs.db
 node_modules
 
+# Generated icons
+/public/icons
+
 # Quasar core related directories
 .quasar
 /dist
