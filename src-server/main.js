@@ -5,11 +5,10 @@ import rest from './rest.js'
 
 app.use(rest)
 
-app.use(express.static('dist'))
 app.use((req, res, next) => {
-  if (req.method === 'GET') {
+  if (req.method === 'GET' && !req.url.split('/').pop().includes('.')) {
     console.log('Getting', req.method, req.url)
-    res.sendFile(process.cwd() + '/dist/index.html')
+    res.sendFile(process.cwd() + '/pwa/index.html')
   } else {
     next()
   }

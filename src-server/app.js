@@ -9,6 +9,9 @@ const app = express()
 
 export default app
 
+// Do this firts to avoid loggin static requests
+app.use(express.static('pwa'))
+
 app.use(morgan('combined'))
 
 app.ws = new EventEmitter()

@@ -85,10 +85,13 @@ export default class RestRouter extends BaseRouter {
                       } else {
                         // Send Server-Timing
                         res.set('Content-Type', 'application/json; charset=utf-8')
+                        console.log('ret', JSON.stringify(ret), ret)
                         res.send(
-                          isDev
-                            ? JSON.stringify(ret, null, 2)
-                            : JSON.stringify(ret)
+                          Buffer.from(
+                            isDev
+                              ? JSON.stringify(ret, null, 2)
+                              : JSON.stringify(ret)
+                          )
                         )
                       }
                     } catch (err) {
