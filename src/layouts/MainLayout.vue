@@ -91,7 +91,7 @@ export default defineComponent({
         />
 
         <q-toolbar-title>
-          Quasar App <q-icon class="icon" name="lightbulb" />
+          Quasar App
         </q-toolbar-title>
 
         <div>Quasar v{{ $q.version }}</div>
@@ -103,7 +103,7 @@ export default defineComponent({
       show-if-above
       bordered
     >
-      <q-list>
+      <q-list v-if="linksList">
         <q-item-label
           header
         >
@@ -119,7 +119,18 @@ export default defineComponent({
     </q-drawer>
 
     <q-page-container>
-      <router-view />
+      <router-view v-slot="{ Component }">
+        <suspense :timeout="250">
+          <template #default>
+            <component :is="Component"/>
+          </template>
+          <template #fallback>
+            <q-page>
+              <q-inner-loading :showing="true" />
+            </q-page>
+          </template>
+        </suspense>
+      </router-view>
     </q-page-container>
   </q-layout>
 </template>

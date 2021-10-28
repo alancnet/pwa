@@ -1,5 +1,7 @@
 <template>
   <q-page>
-    Hello World
+    <h1>
+      Hello World
+    </h1>
   </q-page>
 </template>

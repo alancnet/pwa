@@ -28,6 +28,8 @@ export default class RedisMock extends EventEmitter {
       })
       if (record && (!record.expires || record.expires > Date.now())) {
         cb(null, record?.value)
+      } else {
+        cb(null, null)
       }
     } catch (err) {
       cb(err)

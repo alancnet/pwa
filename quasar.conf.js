@@ -80,15 +80,15 @@ module.exports = configure(function (ctx) {
       open: false, // opens browser window automatically
 
       proxy: {
-        // // proxy all requests starting with /api to server
-        // '/rest': {
-        //   target: 'http://localhost:4001',
-        //   changeOrigin: true
-        // },
-        // '/api': {
-        //   target: 'http://localhost:4001',
-        //   changeOrigin: true
-        // }
+        // proxy all requests starting with /api to server
+        '/rest': {
+          target: 'http://localhost:4001',
+          changeOrigin: true
+        },
+        '/api': {
+          target: 'http://localhost:4001',
+          changeOrigin: true
+        }
       }
     },
 

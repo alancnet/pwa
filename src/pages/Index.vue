@@ -9,8 +9,12 @@ export default defineComponent({
       console.log('recv', message)
     }
 
-    const res = await client.get('/rest/test')
-    console.log('res', res)
+    try {
+      const res = await client.get('/rest/test')
+      console.log('res', res)
+    } catch (err) {
+      console.error(err)
+    }
 
     return {
       onMessage

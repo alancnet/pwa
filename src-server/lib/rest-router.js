@@ -1,5 +1,8 @@
 import express from 'express'
+import { getLogger } from './logging.js'
 import WebError, { internalServerError } from './web-error.js'
+
+const logger = getLogger('rest-router')
 
 /** @typedef { import("express").IRouter } IRouter */
 /** @typedef { import("express").Application } Application */
@@ -85,7 +88,6 @@ export default class RestRouter extends BaseRouter {
                       } else {
                         // Send Server-Timing
                         res.set('Content-Type', 'application/json; charset=utf-8')
-                        console.log('ret', JSON.stringify(ret), ret)
                         res.send(
                           Buffer.from(
                             isDev
@@ -95,7 +97,7 @@ export default class RestRouter extends BaseRouter {
                         )
                       }
                     } catch (err) {
-                      console.error(`[ERROR] Unable to respond with JSON: ${verb} ${path}:`, err)
+                      logger.error(`Unable to respond with JSON: ${verb} ${path}:`, err)
                       throw internalServerError.withBody('Unable to encode response.')
                     }
                   } else if (!res.headersSent) {
@@ -103,7 +105,7 @@ export default class RestRouter extends BaseRouter {
                   }
                 } catch (err) {
                   err.definitelyHandled = true
-                  console.error(`[ERROR] ${path}:`, err.stack)
+                  logger.error(`Error handling ${path}:`, err.stack)
                   await Promise.resolve(res.slow)
                   try {
                     if (err instanceof WebError) {
@@ -118,7 +120,7 @@ export default class RestRouter extends BaseRouter {
                       res.status(500).send(err.message || 'Unknown error')
                     }
                   } catch (err) {
-                    console.warn(`[WARN] Unable to respond with error from ${verb} ${path}:`, err)
+                    logger.warn(`Unable to respond with error from ${verb} ${path}:`, err)
                   }
                 }
               }
@@ -126,7 +128,7 @@ export default class RestRouter extends BaseRouter {
               try {
                 await handle()
               } catch (err) {
-                console.error('[ERROR] Error executing handler:', err)
+                logger.error('Error executing handler:', err)
               }
               // Somehow if an error occurs in the handler, we'll get here, but when the function exits, it's treated as an unhandled promise rejection.
             }

@@ -72,13 +72,9 @@ export default class Client extends EventTarget {
     const body = response.headers.get('Content-Type')?.startsWith('application/json')
       ? await response.json()
       : await response.text()
-    console.log('response', response, body)
 
     if (response.status >= 200 && response.status < 300) {
-      if (response.headers.get('Content-Type')?.startsWith('application/json')) {
-        return await response.json()
-      }
-      return await response.text()
+      return body
     } else {
       const err = new RestError(`${options.method} ${options.url} ${response.status} (${response.message})${response.body ? `: ${response.body}` : ''}`)
       err.response = response
