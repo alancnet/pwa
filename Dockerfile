@@ -18,6 +18,18 @@ ENV NODE_PORT=4000
 
 EXPOSE 4000
 
+COPY package.json yarn.lock /app/
+
+RUN yarn --production && yarn autoclean --force && yarn cache clean
+
 COPY --from=0 /build/dist/ /app/
+
+RUN mkdir /app/data
+
+VOLUME /app/data
+
+ENV APP_DATA_PATH=/app/data/app.db
+
+ENV LOG_LEVEL=info
 
 CMD node --enable-source-maps server.cjs
